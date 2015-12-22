@@ -6832,10 +6832,17 @@ s390_asm_output_function_prefix (FILE *asm_out_file,
 
 /* Write an extra function footer after the very end of the function.  */
 
+/* Get elfos.h's original ASM_DECLARE_FUNCTION_SIZE, so that we can delegate
+   to it below.  */
+
+#undef ASM_DECLARE_FUNCTION_SIZE
+#include "../elfos.h"
+
 void
 s390_asm_declare_function_size (FILE *asm_out_file,
-				const char *fnname ATTRIBUTE_UNUSED, tree decl)
+				const char *fnname, tree decl)
 {
+  ASM_DECLARE_FUNCTION_SIZE(asm_out_file, fnname, decl);
   if (DECL_FUNCTION_SPECIFIC_TARGET (decl) == NULL)
     return;
   fprintf (asm_out_file, "\t.machine pop\n");
