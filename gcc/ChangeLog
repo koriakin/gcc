@@ -1,5 +1,10 @@
 2016-01-02  Marcin Kościelnicki  <koriakin@0x04.net>
 
+	* cfgrtl.c (rtl_tidy_fallthru_edge): Bail for unconditional jumps
+	with side effects.
+
+2016-01-02  Marcin Kościelnicki  <koriakin@0x04.net>
+
 	* function.c (reposition_prologue_and_epilogue_notes): Avoid
 	verification error if the last insn of prologue is an unconditional
 	jump.

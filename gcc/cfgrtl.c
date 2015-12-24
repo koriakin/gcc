@@ -1762,6 +1762,8 @@ rtl_tidy_fallthru_edge (edge e)
      If block B consisted only of this single jump, turn it into a deleted
      note.  */
   q = BB_END (b);
+  if (JUMP_P (q) && !onlyjump_p (q))
+    return;
   if (JUMP_P (q)
       && onlyjump_p (q)
       && (any_uncondjump_p (q)
