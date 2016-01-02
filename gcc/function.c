@@ -6348,6 +6348,12 @@ reposition_prologue_and_epilogue_notes (void)
 	  /* Avoid placing note between CODE_LABEL and BASIC_BLOCK note.  */
 	  if (LABEL_P (last))
 	    last = NEXT_INSN (last);
+	  if (BARRIER_P (last) && BLOCK_FOR_INSN (note))
+	    {
+	      if (BB_END (BLOCK_FOR_INSN (note)) == note)
+		BB_END (BLOCK_FOR_INSN (note)) = PREV_INSN (note);
+	      BLOCK_FOR_INSN (note) = 0;
+	    }
 	  reorder_insns (note, note, last);
 	}
     }
